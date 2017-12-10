@@ -23,6 +23,14 @@ class Transaction
     }
   end
 
+  # Class methods
+  def self.__create(from:, to:, payload:, qty:, timestamp:, id:)
+    tx = self.new(from: from, to: to, payload: payload, qty: qty)
+    tx.instance_variable_set(:@timestamp, timestamp)
+    tx.instance_variable_set(:@id, id)
+    tx
+  end
+
   private
 
   def hash_transaction
