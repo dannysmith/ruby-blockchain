@@ -16,5 +16,11 @@ bc.to_json
 bc.save
 ```
 
+Or to load an existing blockchain:
+
+```ruby
+require './block'
+bc = Blockchain.load('./blockchain.json')
+
 bc.print
 ```

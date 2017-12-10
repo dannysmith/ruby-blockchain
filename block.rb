@@ -64,9 +64,7 @@ class Blockchain
   end
 
   def to_array
-    array = []
-    @blocks.each {|block| array << block.to_h }
-    array
+    [].tap {|array| @blocks.each {|block| array << block.to_h } }
   end
 
   def to_json
