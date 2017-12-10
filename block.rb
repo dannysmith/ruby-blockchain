@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class Block
   attr_reader :index, :data, :previous_hash, :timestamp, :hash
