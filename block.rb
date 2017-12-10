@@ -22,6 +22,15 @@ class Block
     }
   end
 
+  # Class methods
+
+  def self.__create(index:, data:, previous_hash:, timestamp:, hash:)
+    block = self.new(index, data, previous_hash)
+    block.instance_variable_set(:@timestamp, timestamp)
+    block.instance_variable_set(:@hash, hash)
+    block
+  end
+
   private
 
   def calculate_hash
@@ -66,5 +75,16 @@ class Blockchain
 
   def save(filename='blockchain.json')
     File.open(filename,'w') { |f| f.write(self.to_json) }
+  end
+
+  # Class methods
+
+  def self.load(path)
+    blocks, chain = [], self.new
+    JSON.parse(File.read(path), symbolize_names: true).each do |block_hash|
+      blocks << Block.__create(block_hash)
+    end
+    chain.instance_variable_set(:@blocks, blocks)
+    chain
   end
 end
