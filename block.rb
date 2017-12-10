@@ -1,4 +1,5 @@
 require 'digest'
+require 'json'
 
 class Block
   attr_reader :index, :data, :previous_hash, :timestamp, :hash
@@ -9,6 +10,16 @@ class Block
     @previous_hash = previous_hash
     @timestamp = Time.now
     @hash = calculate_hash
+  end
+
+  def to_h
+    {
+      index: @index,
+      data: @data,
+      previous_hash: @previous_hash,
+      timestamp: @timestamp,
+      hash: @hash
+    }
   end
 
   private
@@ -41,5 +52,19 @@ class Blockchain
       puts "Data: #{block.data}"
     end
     puts '---------------'
+  end
+
+  def to_array
+    array = []
+    @blocks.each {|block| array << block.to_h }
+    array
+  end
+
+  def to_json
+    JSON.pretty_generate(self.to_array)
+  end
+
+  def save(filename='blockchain.json')
+    File.open(filename,'w') { |f| f.write(self.to_json) }
   end
 end
