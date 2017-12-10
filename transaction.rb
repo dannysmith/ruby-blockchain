@@ -1,5 +1,8 @@
 # frozen_string_literal: true
+
 class Transaction
+  attr_reader :id, :from, :to, :payload, :qty, :timestamp
+
   def initialize(from:, to:, payload: 'BTC', qty: 1)
     @from = from
     @to = to
@@ -9,8 +12,15 @@ class Transaction
     @id = hash_transaction
   end
 
-  def to_s
-    "foo"
+  def to_h
+    {
+      from: @from,
+      to: @to,
+      payload: @payload,
+      qty: @qty,
+      timestamp: @timestamp,
+      id: @id
+    }
   end
 
   private

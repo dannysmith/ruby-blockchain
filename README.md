@@ -46,6 +46,31 @@ bc.add data: transactions
 bc.print
 ```
 
+To use transactions and wallets together:
+
+```ruby
+w1 = Wallet.new(pass_phrase: 'secret1', name: 'danny')
+w2 = Wallet.new(pass_phrase: 'secret2', name: 'ben')
+
+transactions = [
+  Transaction.new(from: w1.address, to: w2.address, payload: 'BTC', qty: 2),
+  Transaction.new(from: w2.address, to: w1.address, payload: 'BTC', qty: 1)
+]
+
+bc = Blockchain.new(genisis_data: 'Genisis')
+bc.add data: transactions
+bc.print
+bc.save('myblockchain.json')
+exit # Quit, then...
+
+# Load the stored bloackchain
+bc = Blockchain.load('myblockchain.json')
+
+# Regenerate the wallets
+w1 = Wallet.new(pass_phrase: 'secret1', name: 'danny')
+w2 = Wallet.new(pass_phrase: 'secret2', name: 'ben')
+```
+
 ## TODO
 
 - [ ] Refactor for brevity

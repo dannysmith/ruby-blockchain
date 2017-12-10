@@ -5,6 +5,7 @@ require 'json'
 require 'digest'
 
 require './transaction'
+require './wallet'
 require './block'
 require './blockchain'
 

@@ -14,7 +14,7 @@ class Block
   def to_h
     {
       index: @index,
-      data: @data,
+      data: @data.is_a?(Array) ? @data.map(&:to_h) : @data.to_s,
       previous_hash: @previous_hash,
       timestamp: @timestamp,
       hash: @hash
